@@ -1,5 +1,9 @@
 #include "Terminal.hpp"
 #include <iostream>
+#include <string>
+
+using namespace std;
+
 
 /* 
     My naming conventions are as follows:
@@ -9,11 +13,12 @@
 */
 
 // ASCII keycodes: https://en.cppreference.com/w/cpp/language/ascii
-const int q = 113; // The letter q
-const int w = 119; // The letter w
-const int s = 115;
-const int a = 97;
-const int d = 100;
+const int q_ = 113; // The letter q
+const int w_ = 119; // The letter w
+const int s_ = 115;
+const int a_ = 97;
+const int d_ = 100;
+const int f_ = 102;
 
 int clamp(int val, int max, int min=0){
     if(val > max-1){
@@ -34,7 +39,8 @@ int main(){
     const int SCREEN_WIDTH = 80;
     const int SCREEN_HEIGHT = 24;
 
-    const char selection = '.';
+
+    string selection = "@";
 
 
     // Cordinates
@@ -52,7 +58,7 @@ int main(){
             case KEY_UP:
                 y = clamp(y-1, SCREEN_HEIGHT);
             break;
-            case w:
+            case w_:
                 y = clamp(y-1, SCREEN_HEIGHT);
             break;
 
@@ -60,7 +66,7 @@ int main(){
             case KEY_DOWN:
                 y = clamp(y+1, SCREEN_HEIGHT);
             break; 
-            case s:
+            case s_:
                 y = clamp(y+1, SCREEN_HEIGHT);
             break;
 
@@ -68,7 +74,7 @@ int main(){
             case KEY_LEFT:
                 x = clamp(x-1, SCREEN_WIDTH);
             break;
-            case a:
+            case a_:
                 x = clamp(x-1, SCREEN_WIDTH);
             break;
 
@@ -76,17 +82,27 @@ int main(){
             case KEY_RIGHT:
                 x = clamp(x+1, SCREEN_WIDTH);
             break;
-            case d:
+            case d_:
                 x = clamp(x+1, SCREEN_WIDTH);
+            break;
+
+            //SELECT
+            case KEY_ENTER:
+                //select
+            break;
+            case f_:
+                //select
             break;
 
             //EXIT
             case KEY_EXIT:
                 terminal.quit();
             break;
-            case q:
+            case q_:
                 terminal.quit();
             break;
+
+
         }
 
         // Drawing
