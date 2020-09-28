@@ -1,0 +1,1 @@
+g++ ./app/main.cpp -o Minesweeper -lncurses -lstdc++
