@@ -1,6 +1,8 @@
+#include "common.cpp"
 #include "Terminal.hpp"
 #include <iostream>
 #include <string>
+
 
 using namespace std;
 
@@ -20,15 +22,6 @@ const int a_ = 97;
 const int d_ = 100;
 const int f_ = 102;
 
-int clamp(int val, int max, int min=0){
-    if(val > max-1){
-        return max-1;
-    }else if(val < min){
-        return min;
-    }else{
-        return val;
-    }
-}
 
 
 
