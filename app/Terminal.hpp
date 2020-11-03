@@ -16,7 +16,7 @@ class Terminal{
             tearDown();
         };
 
-        void setup(){
+        void setup(){ // ncurses init
             initscr();
             raw();
             keypad(stdscr, TRUE);
@@ -25,24 +25,24 @@ class Terminal{
             m_done = false;
         }
 
-        void quit(){
+        void quit(){ // stop the program
             m_done = true;
         }
 
-        void tearDown(){
+        void tearDown(){ // unalloc ncurses
             endwin();
         }
 
-        void updateScreen(){
+        void endDraw(){ // update the screen
             refresh();
         }
 
         // getters
-        int getKey(){
+        int getKey(){ // return the ascii int value assigned to a keypress
             return getch();
         }
 
-        bool isDone(){
+        bool isDone(){ // figure out if the program is done running
             return m_done;
         }
 

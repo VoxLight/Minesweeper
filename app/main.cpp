@@ -1,8 +1,7 @@
-#include "common.cpp"
+#include "Field.hpp"
 #include "Terminal.hpp"
 #include <iostream>
 #include <string>
-
 
 using namespace std;
 
@@ -14,37 +13,46 @@ using namespace std;
         variables/properties/parameters: lower_underscore_space
 */
 
-// ASCII keycodes: https://en.cppreference.com/w/cpp/language/ascii
-const int q_ = 113; // The letter q
-const int w_ = 119; // The letter w
-const int s_ = 115;
-const int a_ = 97;
-const int d_ = 100;
-const int f_ = 102;
 
+// ASCII keycodes: https://en.cppreference.com/w/cpp/language/ascii
+const int a_ = 97;  // ascii decimal value for 'a'
+const int d_ = 100; // ascii decimal value for 'd'
+const int e_ = 101; // decimal value for 'e'
+const int f_ = 102; // etc
+const int q_ = 113;
+const int w_ = 119; 
+const int s_ = 115;
 
 
 
 int main(){
+
+    const int FIELD_WIDTH = 8;
+    const int FIELD_HEIGHT = 8;
+    const int BOMB_COUNT = 12;
+
     // nCurses wrapper
     Terminal terminal;
 
-    const int SCREEN_WIDTH = 80;
-    const int SCREEN_HEIGHT = 24;
-
-
-    string selection = "@";
+    // Minefield
+    Field field = Field(FIELD_WIDTH, FIELD_HEIGHT, BOMB_COUNT);
 
 
     // Cordinates
-    int x = SCREEN_WIDTH/2;
-    int y = SCREEN_HEIGHT/2;
+    int x = 0;
+    int y = 0;
+
+    
+
+    // Initial render of the board
+    field.draw();
+    terminal.endDraw();
 
     // The game loop
     while (!terminal.isDone()){
         int input = terminal.getKey();
-
         // Selection Handling
+
         switch(input){
 
             // UP
@@ -81,10 +89,19 @@ int main(){
 
             //SELECT
             case KEY_ENTER:
-                //select
+                if(x > field.getWidth() || y > field.getHeight()){continue;}
+                field.select(x, y);
             break;
+            case e_:   
+                if(x > field.getWidth() || y > field.getHeight()){continue;}    
+                field.select(x, y);
+            break;
+
+
+            //FLAG
             case f_:
-                //select
+                if(x > field.getWidth() || y > field.getHeight()){continue;}
+                field.flag(x, y);
             break;
 
             //EXIT
@@ -95,11 +112,19 @@ int main(){
                 terminal.quit();
             break;
 
-
         }
+
+            if(field.isDead()){
+                break;
+            }
 
         // Drawing
         move(y, x);
+
+        field.draw();
+        terminal.endDraw();
+
+        
     }
     
 
